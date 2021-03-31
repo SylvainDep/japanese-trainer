@@ -1,0 +1,45 @@
+.lesson__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+
+    h1 {
+        margin: 0;
+    }
+
+    i {
+        font-size: .8em;
+    }
+}
+
+.voc_table__container {
+    max-width: 100%;
+    overflow: scroll;
+    .voc_table {
+        border-spacing: 0;
+        text-align: left;
+        width: 100%;
+        // min-width: 500px;
+    
+        tr {
+            &:nth-child(odd) {
+                background-color: #f9f9f9;
+            }
+    
+            th, td {
+                border-bottom: 1px solid #E0E0E0;
+                border-collapse: collapse;
+                padding: 6px;
+    
+                width: 33%
+            }
+    
+            &:first-child {
+                background-color: #337ab7;
+                color: white;
+            }
+        }
+        
+    }
+}
