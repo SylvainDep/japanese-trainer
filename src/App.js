@@ -5,7 +5,7 @@ import {
   Route
 } from "react-router-dom";
 
-import Vocabulary from './data/vocabularylist.json'
+import Vocabulary from './data/thing.json'
 
 import Trainer from './pages/Trainer'
 import Lesson from './pages/Lesson'

@@ -14,7 +14,7 @@ const Lesson = props => {
 
     const filterWords = () => {
         const sameCategoryWords = Vocabulary.filter(word => {
-            const isSameCategory = word.lesson === Number(lessonId)
+            const isSameCategory = Number(word.lesson) === Number(lessonId)
             return isSameCategory
         });
 
@@ -25,8 +25,8 @@ const Lesson = props => {
         let words = []
 
         const Vocabulary = filterWords()
-        
-        for (let i=0; i<Vocabulary.length; i++) {
+
+        for (let i = 0; i < Vocabulary.length; i++) {
             words.push(
                 <tr key={i}>
                     <td>{Vocabulary[i].japanese}</td>
@@ -41,13 +41,13 @@ const Lesson = props => {
 
     const sortFormChapters = () => {
         let formChaptersOptions = [];
-        
-        for (let i=0; i<44;i++) {
+
+        for (let i = 0; i < 50; i++) {
             formChaptersOptions.push(
-                <option key={i}>{i+1}</option>
+                <option key={i}>{i + 1}</option>
             )
-        } 
-        
+        }
+
         return formChaptersOptions;
     }
 

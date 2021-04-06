@@ -2,6 +2,9 @@ import { useState, useEffect, createRef } from 'react'
 
 import './Trainer.scss';
 
+import playButton from '../img/play.png';
+import Sounds from '../data/media/';
+
 const Trainer = props => {
     const Vocabulary = props.vocabularyList;
 
@@ -13,12 +16,21 @@ const Trainer = props => {
     const [isAnswerCorrect, setIsAnswerCorrect] = useState(false);
     const [selectedChapters, setSelectedChapters] = useState({
         from: 1,
-        to: 44
+        to: 50
     });
 
     useEffect(() => {
         newWord();
     }, [selectedChapters])
+
+    const start = () => {
+        console.log('hey')
+
+        console.log(`LESSON01_${pickedWord.audio}`)
+
+        let audio = new Audio(Sounds[`LESSON01_${pickedWord.audio}`])
+        audio.play()
+    }
 
     const checkAnswer = (e, value, givenanswer) => {
         let isCorrect = pickedWord.english.includes(givenanswer);
@@ -43,7 +55,7 @@ const Trainer = props => {
         const randomElement = selectedWords[Math.floor(Math.random() * selectedWords.length)];
 
         const sameCategoryWords = Vocabulary.filter(word => {
-            const isSameCategory = word.partOfSpeech[0] === randomElement.partOfSpeech[0]
+            const isSameCategory = word.category === randomElement.category
             return isSameCategory
         });
 
@@ -99,7 +111,7 @@ const Trainer = props => {
         let formChaptersOptions = [];
         
         if (range === 'from') {
-            for (let i=0; i<44;i++) {
+            for (let i=0; i<50;i++) {
                 if (i+1 <= selectedChapters.to) {
                     formChaptersOptions.push(
                         <option key={i}>{i+1}</option>
@@ -109,7 +121,7 @@ const Trainer = props => {
         }
 
         if (range === 'to') {
-            for (let i=0; i<44;i++) {
+            for (let i=0; i<50;i++) {
                 if (i+1 >= selectedChapters.from) {
                     formChaptersOptions.push(
                         <option key={i}>{i+1}</option>
@@ -145,7 +157,7 @@ const Trainer = props => {
                         <div className="front">
                             <div className="card__header">
                                 <span>Lesson {pickedWord.lesson}</span>
-                                <span>{pickedWord.partOfSpeech}</span>
+                                <span>{pickedWord.category}</span>
                             </div>
                             <div className="card__main">
                                 <span>{pickedWord.japanese}</span>
@@ -153,6 +165,8 @@ const Trainer = props => {
                                 {pickedWord.japanese !== pickedWord.japanese_all_hiragana &&
                                     <span>{pickedWord.japanese_all_hiragana}</span>
                                 }
+                                <br />
+                                <img className="playButton" src={playButton} onClick={start} />
                             </div>
                         </div>
                         <div className={`back${isAnswerCorrect?' correct': ' wrong'}`}>
