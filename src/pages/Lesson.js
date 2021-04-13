@@ -5,6 +5,9 @@ import {
     useHistory
 } from "react-router-dom";
 
+import playButton from '../img/play.png';
+import Sounds from '../data/media/';
+
 import './Lesson.scss'
 
 const Lesson = props => {
@@ -21,6 +24,24 @@ const Lesson = props => {
         return sameCategoryWords
     }
 
+    const start = (tomeId, audiocode) => {
+        let tome;
+
+        switch (tomeId) {
+            case '1-1':
+                tome = 1;
+                break;
+            case '1-2':
+                tome = 2;
+                break;
+        }
+
+        console.log(tome, audiocode)
+
+        let audio = new Audio(Sounds[`LESSON0${tome}_${audiocode}`])
+        audio.play()
+    }
+
     const renderTable = () => {
         let words = []
 
@@ -29,7 +50,12 @@ const Lesson = props => {
         for (let i = 0; i < Vocabulary.length; i++) {
             words.push(
                 <tr key={i}>
-                    <td>{Vocabulary[i].japanese}</td>
+                    <td>
+                        { Vocabulary[i].audio.length !== 0 && 
+                            <img className="playButton" src={playButton} onClick={() => start(Vocabulary[i].tome, Vocabulary[i].audio)} />
+                        }
+                        {Vocabulary[i].japanese}
+                    </td>
                     <td>{Vocabulary[i].japanese_all_hiragana}</td>
                     <td>{Vocabulary[i].english}</td>
                 </tr>
@@ -61,7 +87,7 @@ const Lesson = props => {
                 <h1>Lesson {lessonId}</h1>
                 <div>
                     <i>Go to chapter: </i>
-                    <select onChange={changeLesson}>
+                    <select onChange={changeLesson} value={lessonId}>
                         {sortFormChapters()}
                     </select>
                 </div>

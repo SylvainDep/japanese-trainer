@@ -24,11 +24,20 @@ const Trainer = props => {
     }, [selectedChapters])
 
     const start = () => {
-        console.log('hey')
+        let tome;
 
-        console.log(`LESSON01_${pickedWord.audio}`)
+        switch (pickedWord.tome) {
+            case '1-1':
+                console.log(11111);
+                tome = 1;
+                break;
+            case '1-2':
+                console.log(22222)
+                tome = 2;
+                break;
+        }
 
-        let audio = new Audio(Sounds[`LESSON01_${pickedWord.audio}`])
+        let audio = new Audio(Sounds[`LESSON0${tome}_${pickedWord.audio}`])
         audio.play()
     }
 
@@ -160,12 +169,13 @@ const Trainer = props => {
                                 <span>{pickedWord.category}</span>
                             </div>
                             <div className="card__main">
-                                <span>{pickedWord.japanese}</span>
-                                <br/>
-                                {pickedWord.japanese !== pickedWord.japanese_all_hiragana &&
-                                    <span>{pickedWord.japanese_all_hiragana}</span>
-                                }
-                                <br />
+                                <div className="words">
+                                    <span>{pickedWord.japanese}</span>
+                                    <br/>
+                                    {pickedWord.japanese !== pickedWord.japanese_all_hiragana &&
+                                        <span>{pickedWord.japanese_all_hiragana}</span>
+                                    }
+                                </div>
                                 <img className="playButton" src={playButton} onClick={start} />
                             </div>
                         </div>
